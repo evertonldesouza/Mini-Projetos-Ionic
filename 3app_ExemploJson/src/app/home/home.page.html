@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Exemplo Json
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p *ngFor="let item of produtos">
+    {{ item.id }} - {{ item.descricao }} - {{ item.preco }}
+  </p>
+</ion-content>

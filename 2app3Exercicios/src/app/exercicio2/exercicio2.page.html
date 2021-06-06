@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercicio 2</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nota 1</ion-label>
+    <ion-input type="number" [(ngModel)]="nota1"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Nota 2</ion-label>
+    <ion-input type="number" [(ngModel)]="nota2"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Nota 3</ion-label>
+    <ion-input type="number" [(ngModel)]="nota3"></ion-input>
+  </ion-item>
+  <ion-button (click)="calcularMedia()" expand="block" shape="round">
+    Calcular média
+  </ion-button>
+  
+  
+</ion-content>

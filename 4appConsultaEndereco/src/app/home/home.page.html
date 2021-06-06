@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Aplicação de Consulta endereço
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Digite o CEP</ion-label>
+    <ion-input [(ngModel)]="cep"></ion-input>
+  </ion-item>
+  <ion-button (click)="consultaEndereco()" expand="block">
+    Consultar endereço
+  </ion-button>
+
+  <div *ngIf="endereco.localidade">
+
+    <ion-list lines="full">
+
+          <h2>Resultado da busca:</h2>
+
+      <ion-item>
+        <ion-label>
+          <p>Logradouro: {{ endereco.logradouro }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+            <p>Bairro: {{ endereco.bairro }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+            <p>Cidade: {{ endereco.localidade }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+            <p>Estado:{{endereco.uf}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+            <p>DDD Area:{{endereco.ddd}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+
+
+
+
+
+</ion-content>

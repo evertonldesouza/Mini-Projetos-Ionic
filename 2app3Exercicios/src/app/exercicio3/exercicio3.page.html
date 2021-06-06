@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercicio 3</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Informe o valor de vendas</ion-label>
+    <ion-input type="number" [(ngModel)]="valorVendas"></ion-input>
+  </ion-item>
+  <ion-button (click)="executarCalculoComissao()" expand="block" shape="round">
+    Calcular comissão
+  </ion-button>
+</ion-content>

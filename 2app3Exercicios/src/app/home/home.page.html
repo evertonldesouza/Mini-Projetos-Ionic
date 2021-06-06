@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Exercício 1
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Informe o ano de nascimento</ion-label>
+    <ion-input type="number" [(ngModel)]="anoNascimento"></ion-input>
+  </ion-item>
+  <ion-button (click)="exibirIdade()" expand="block" shape="round">
+    Exibir idade
+  </ion-button>
+</ion-content>

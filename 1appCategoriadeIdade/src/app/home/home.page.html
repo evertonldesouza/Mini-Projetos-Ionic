@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Categorias
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Digite a idade</ion-label>
+    <ion-input type="number" [(ngModel)]="idade"></ion-input>
+  </ion-item>
+  <ion-button (click)="consultaCategoria()" expand="block" size="small" shape="round">
+    Consultar Categoria
+  </ion-button>
+</ion-content>
