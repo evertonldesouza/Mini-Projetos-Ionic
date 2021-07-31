@@ -1,0 +1,7 @@
+{
+  "name": "appEtecFlix",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

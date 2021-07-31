@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "appEtecFlix",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
