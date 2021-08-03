@@ -1,6 +1,6 @@
 {
 	"appId": "io.ionic.starter",
-	"appName": "pokedexApp",
+	"appName": "PokedexApp",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }
