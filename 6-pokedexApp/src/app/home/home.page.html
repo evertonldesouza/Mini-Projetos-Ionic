@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header>
   <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
 	<ion-toolbar>
 		<ion-buttons slot="end">
@@ -10,169 +10,31 @@
       </ion-button>
     </ion-buttons>
 	</ion-toolbar>
-
-  <div class="titles">
-    <h4>
-      Pokédex
-    </h4>
-    <ion-card-subtitle>Realize a busca por pokemon pelo nome</ion-card-subtitle>
-
-    <ion-searchbar class="ion-no-padding ion-padding-top"></ion-searchbar>
-  </div>
-
 </ion-header>
 
-<ion-content fullscreen="true">
+<ion-content [fullscreen]="true">
 
-  <div class="ion-padding">
+  <ion-searchbar (ionChange)="buscarPokemon($event)" placeholder="Buscar Pokemons"></ion-searchbar>
 
-    <ion-card class="grass">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#001</ion-card-subtitle>
-            <ion-card-title>Bulbasaur</ion-card-title>
-            <ion-card-subtitle >
-              <ion-badge color= "grass" >                                
-                Grass
-              </ion-badge>
-              <ion-badge color="poison">                                
-                Poison
-              </ion-badge>              
-            </ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+  <ion-list>
 
-    <ion-card class="grass">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#002</ion-card-subtitle>
-            <ion-card-title>Ivysaur</ion-card-title>
-            <ion-card-subtitle >
-              <ion-badge color= "grass" >                                
-                Grass
-              </ion-badge>
-              <ion-badge color="poison">                                
-                Poison
-              </ion-badge>              
-            </ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+    <ion-item *ngFor="let pokemon of listaPokemonsFiltrada" class="ion-no-padding" [color]="pokemon.tipos[0] | lowercase" routerLink="/bulbasaur" >
+      <ion-thumbnail slot="start">
+        <img [src]="pokemon.foto">
+      </ion-thumbnail>
+      <ion-label>
+        <div>
+          <h3>{{pokemon.nome}}</h3>
+          <div >
+            <ion-badge *ngFor="let tipo of pokemon.tipos" [color]="tipo | lowercase">{{tipo}}</ion-badge>
+          </div>
+        </div>
+      </ion-label>
+      <ion-chip [color]="pokemon.tipos[0] | lowercase">
+        <ion-label class="no">{{pokemon.numero}}</ion-label>
+      </ion-chip>
+    </ion-item>
 
-    <ion-card class="grass">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#003</ion-card-subtitle>
-            <ion-card-title>Venosaur</ion-card-title>
-            <ion-card-subtitle >
-              <ion-badge color= "grass" >                                
-                Grass
-              </ion-badge>
-              <ion-badge color="poison">                                
-                Poison
-              </ion-badge>              
-            </ion-card-subtitle>            
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-    
-    <ion-card class="fire">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#004</ion-card-subtitle>
-            <ion-card-title>Charmander</ion-card-title>
-            <ion-card-subtitle>
-              <ion-badge color="fire">
-                <ion-icon name="fire"></ion-icon>
-                Fire
-              </ion-badge>
-            </ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card class="fire">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#005</ion-card-subtitle>
-            <ion-card-title>Charmeleon</ion-card-title>
-            <ion-card-subtitle>
-              <ion-badge color="fire">
-                <ion-icon name="fire"></ion-icon>
-                Fire
-              </ion-badge>
-            </ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card class="fire">
-      <div class="mask">
-        <img src="https://github.com/habibalmawali/UI-Challenges/blob/master/ionic-pokedex/src/assets/pokeball.png?raw=true" alt="">
-      </div>
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="8">
-            <ion-card-subtitle class="no">#006</ion-card-subtitle>
-            <ion-card-title>Charizard</ion-card-title>
-            <ion-card-subtitle>
-              <ion-badge color="fire">
-                <ion-icon name="fire"></ion-icon>
-                Fire
-              </ion-badge>
-              <ion-badge color="flying">
-                <ion-icon name="fire"></ion-icon>
-                Flying
-              </ion-badge>
-            </ion-card-subtitle>
-          </ion-col>
-          <ion-col size="4">
-            <ion-img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
+  </ion-list>
 
 </ion-content>

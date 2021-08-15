@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetailsPageRoutingModule } from './details-routing.module';
+import { BulbasaurPageRoutingModule } from './bulbasaur-routing.module';
 
-import { DetailsPage } from './details.page';
+import { BulbasaurPage } from './bulbasaur.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailsPageRoutingModule
+    BulbasaurPageRoutingModule
   ],
-  declarations: [DetailsPage]
+  declarations: [BulbasaurPage]
 })
-export class DetailsPageModule {}
+export class BulbasaurPageModule {}
