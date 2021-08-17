@@ -1,9 +1,30 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>bulbasaur</ion-title>
+    <ion-title>Bulbasaur Nº001</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-item *ngFor="let listaPokemon of listaPokemon" lines="full" class="ion-no-padding" routerLink="/bulbasaur">
+
+    <ion-badge>
+
+      <img [src]="listaPokemon.foto">
+
+  <h4>Tipo</h4>
+
+    <ion-button *ngFor="let tipo of listaPokemon.tipos" [color]="tipo | lowercase">
+      {{tipo}}
+   </ion-button>
+
+    <h4>Fraquezas</h4>
+
+    <ion-button *ngFor="let fraqueza of listaPokemon.fraquezas" [color]="fraqueza | lowercase">
+     {{fraqueza}}
+    </ion-button>
+
+</ion-badge>
+</ion-item>
 </ion-content>
