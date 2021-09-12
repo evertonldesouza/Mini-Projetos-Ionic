@@ -1,4 +1,8 @@
+import { IPokemon } from './../models/IPokemon.model';
+import { PokemonService } from './../services/pokemon.service';
+import { DadosService } from './../services/dados.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,94 +10,80 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+ // Criamos um array de pokemons
+ // [] => representa um array (Lista)
+ // {} => representa um objeto (Item)
+  listaPokemon: IPokemon[] = [];
 
-  //fotoPokemon = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png";
-  // Criamos um array de pokemons
-  // [] => representa um array (lista)
-  // {} => represneta um objetivo (item)
-  listaPokemons = [
-    {
-      numero: '001',
-      nome: 'Bulbasaur',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
-      tipos: [ 'Grass', 'Poison' ]
-    },
-    {
-      numero: '002',
-      nome: 'Ivysaur',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png',
-      tipos: [ 'Grass', 'Poison' ]
-    },
-    {
-      numero: '003',
-      nome: 'Venusaur',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png',
-      tipos: [ 'Grass', 'Poison' ]
-    },
-    {
-      numero: '004',
-      nome: 'Charmander',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png',
-      tipos: [ 'Fire' ]
-    },
-    {
-      numero: '005',
-      nome: 'Charmeleon',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png',
-      tipos: [ 'Fire' ]
-    },
-    {
-      numero: '006',
-      nome: 'Charizard',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png',
-      tipos: [ 'Fire', 'Flying' ]
-    },
-    {
-      numero: '007',
-      nome: 'Squirtle',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
-      tipos: [ 'Water' ]
-    },
-    {
-      numero: '008',
-      nome: 'Wartortle',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png',
-      tipos: [ 'Water' ]
-    },
-    {
-      numero: '009',
-      nome: 'Blastoise',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/009.png',
-      tipos: [ 'Water' ]
-    },
-    {
-      numero: '010',
-      nome: 'Caterpie',
-      foto: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/010.png',
-      tipos: [ 'Bug' ]
-    }
-  ];
+  listaPokemonFiltrada: IPokemon[] = [];
+  totalPokemons = 0; // Guarda o total de pokemons
+  offset = 0; // Utilizado para navegar entre as páginas
 
-  listaPokemonsFiltrada = [];
 
-  constructor() {
-    this.retornaPokemon();
+  constructor(
+    private dadosService: DadosService,
+    private router: Router,
+    private pokemonService: PokemonService) {
+
+      this.buscarPokemonAPI();
   }
 
-  retornaPokemon(): void {
-    this.listaPokemonsFiltrada = this.listaPokemons;
+  retornarPokemon(): void{
+    // Ordenar os pokemons pelo ID
+    this.listaPokemonFiltrada.sort((a , b) => {
+      if(a.id > b.id) {
+        return 1;
+      }
+
+      if(a.id < b.id) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    this.listaPokemonFiltrada = this.listaPokemon;
   }
 
-  buscarPokemon(evento): void {
-    this.retornaPokemon(); //Coloca todos os pokemons na lista filtrada
-    const busca: string = evento.target.value;
+  buscarPokemon(evento): void{
+    this.retornarPokemon(); // Coloca todos os pokemons na lista filtrada
 
     // Pega o valor digitado no campo de busca
-    if(busca && busca.trim() !== ''){ // Testa se tem alguma coisa no campo
-      this.listaPokemonsFiltrada = this.listaPokemons.filter(pokemon =>
-        pokemon.nome.toLowerCase().includes(busca.trim().toLowerCase())
-      );
-    }
+    const busca: string = evento.target.value;
+
+    if(busca && busca.trim() !== '') {
+      this.listaPokemonFiltrada = this.listaPokemon.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(busca.trim().toLowerCase())
+    );
+   }
   }
 
+
+  abrirPokemon(pokemon: any): void {
+    // Salva o pokemon clicado no serviço de dados temporário.
+    this.dadosService.setDados('pokemon', pokemon);
+
+    // Navega até a página para exibir os dados.
+    this.router.navigateByUrl('/dados-pokemon');
+  }
+
+  buscarPokemonAPI(offset = 0): void {
+    this.offset = offset;
+    this.listaPokemon = [];
+    this.pokemonService.buscarPokemons(this.offset).subscribe(dadosRetorno =>{
+      console.log(dadosRetorno); // Pega a lista de pokemons da API
+
+      this.totalPokemons = dadosRetorno.count;
+
+      // Percorre a lista de Pokemon para buscar os dados de cada pokemon.
+      for(const item of dadosRetorno.results){
+
+        // Busca na API os dados de cada pokemon
+        this.pokemonService.buscarUmPokemon(item.url).subscribe(dadosPokemon => {
+          this.listaPokemon.push(dadosPokemon); // Coloca os dados no Array
+          this.retornarPokemon(); // Fim da busca de 1 pokemon
+        });
+      }// Fim do For
+    });// Fim do Subscribe
+  }// Fim do Método
 }
