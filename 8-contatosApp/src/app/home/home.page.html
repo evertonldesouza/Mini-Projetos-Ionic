@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-title>
+      Cadastro APP
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="formCadastro">
+    <ion-card>
+      <ion-item>
+          <ion-label position="floating" class="label">
+            <ion-icon name="person" class="ico"></ion-icon> Nome
+          </ion-label>
+          <ion-input formControlName="nome" class="input"></ion-input>
+          <ng-container *ngFor="let erro of mensagens.nome">
+            <span class="msg-erro"
+              *ngIf="formCadastro.get('nome').hasError(erro.tipo) && (formCadastro.get('nome').dirty || formCadastro.get('nome').touched)">
+              {{erro.mensagem}}
+            </span>
+          </ng-container>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="floating" class="label">
+            <ion-icon name="call" class="ico"></ion-icon> Telefone </ion-label>
+            <ion-input type="tel" formControlName="telefone" class="input"></ion-input>
+            <ng-container *ngFor="let erro of mensagens.telefone">
+              <span class="msg-erro"
+                *ngIf="formCadastro.get('telefone').hasError(erro.tipo) && (formCadastro.get('telefone').dirty || formCadastro.get('telefone').touched)">
+                {{erro.mensagem}}
+              </span>
+            </ng-container>
+      </ion-item>
+
+      <ion-button class="mg-b" expand="block" (click)="salvarCadastro()">Salvar</ion-button>
+    </ion-card>
+  </form>
+</ion-content>
